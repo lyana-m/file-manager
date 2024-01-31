@@ -1,0 +1,16 @@
+{
+  "name": "file-manager",
+  "version": "1.0.0",
+  "description": "cli application for file management",
+  "main": "index.js",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "lyana-m",
+  "license": "ISC"
+}
