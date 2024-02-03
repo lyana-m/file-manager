@@ -1,6 +1,5 @@
 import {homedir} from 'os';
-import {isCommandValid} from './isCommandValid.js';
-import {readDir} from './readDir.js';
+import {FileManager} from './FileManager.js';
 
 const args = process.argv.slice(2);
 const username = args[0].split('=')[1];
@@ -18,21 +17,5 @@ process.on('SIGINT', () => {
   process.exit(0);
 });
 
-process.stdin.on('data', async (data) => {
-  const input = data.toString().trim();
-
-  if (input === '.exit') {
-    process.exit(0);
-  }
-
-  if (!isCommandValid(input)) {
-    console.log(`Invalid input\n`);
-  }
-
-  if (input === 'ls') {
-    await readDir(rootDir);
-  }
-
-  console.log(`You are currently in ${rootDir}\n`)
-  // console.log(`You entered: ${input}`);
-});
+export const manager = new FileManager(rootDir);
+manager.start();
