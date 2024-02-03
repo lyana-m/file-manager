@@ -7,7 +7,7 @@ export const isCommandValid = (command, args) => {
       return args.length === 0;
 
     case 'cd':
-    case 'cut':
+    case 'cat':
     case 'add':
     case 'rm':
     case 'hash':

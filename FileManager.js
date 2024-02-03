@@ -3,6 +3,7 @@ import {parseInput} from './helpers/parseInput.js';
 import {isCommandValid} from './helpers/isCommandValid.js';
 import {INVALID_INPUT, OPERATION_FAILED} from './constants/errors.js';
 import {listFiles} from './commands/files/listFiles.js';
+import {readFile} from './commands/files/readFile.js';
 import {navigateUp} from './commands/navigation/navigateUp.js';
 import {checkTargetDir} from './commands/navigation/checkTargetDir.js';
 
@@ -27,6 +28,11 @@ export class FileManager {
     await checkTargetDir(newDir);
     this.currentDir = newDir;
   };
+
+  cat = async ([filePath]) => {
+    const fullPath = path.resolve(this.currentDir, filePath);
+    await readFile(fullPath);
+  }
 
   start() {
     process.stdin.on('data', async (data) => {
