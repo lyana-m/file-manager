@@ -4,6 +4,7 @@ import {isCommandValid} from './helpers/isCommandValid.js';
 import {INVALID_INPUT, OPERATION_FAILED} from './constants/errors.js';
 import {listFiles} from './commands/files/listFiles.js';
 import {readFile} from './commands/files/readFile.js';
+import {createFile} from './commands/files/createFile.js';
 import {navigateUp} from './commands/navigation/navigateUp.js';
 import {checkTargetDir} from './commands/navigation/checkTargetDir.js';
 
@@ -32,6 +33,11 @@ export class FileManager {
   cat = async ([filePath]) => {
     const fullPath = path.resolve(this.currentDir, filePath);
     await readFile(fullPath);
+  }
+
+  add = async ([fileName]) => {
+    const fullPath = path.resolve(this.currentDir, fileName);
+    await createFile(fullPath);
   }
 
   start() {
