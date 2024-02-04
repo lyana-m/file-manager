@@ -8,6 +8,7 @@ import { createFile } from './commands/files/createFile.js';
 import { renameFile } from './commands/files/renameFile.js';
 import { copyFile } from './commands/files/copyFile.js';
 import { moveFile } from './commands/files/moveFile.js';
+import { deleteFile } from './commands/files/deleteFile.js';
 import { navigateUp } from './commands/navigation/navigateUp.js';
 import { checkTargetDir } from './commands/navigation/checkTargetDir.js';
 
@@ -58,6 +59,11 @@ export class FileManager {
     const fullSourcePath = path.resolve(this.currentDir, sourceFilePath);
     const fullDestPath = path.resolve(this.currentDir, destPath);
     await moveFile(fullSourcePath, fullDestPath);
+  }
+
+  rm = async ([filePath]) => {
+    const fullPath = path.resolve(this.currentDir, filePath);
+    await deleteFile(fullPath);
   }
 
   start() {
