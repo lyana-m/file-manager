@@ -11,6 +11,7 @@ import { moveFile } from './commands/files/moveFile.js';
 import { deleteFile } from './commands/files/deleteFile.js';
 import { navigateUp } from './commands/navigation/navigateUp.js';
 import { checkTargetDir } from './commands/navigation/checkTargetDir.js';
+import { getOsInfo } from './commands/os/getOsInfo.js';
 
 export class FileManager {
   currentDir;
@@ -64,6 +65,10 @@ export class FileManager {
   rm = async ([filePath]) => {
     const fullPath = path.resolve(this.currentDir, filePath);
     await deleteFile(fullPath);
+  }
+
+  os = ([arg]) => {
+    getOsInfo(arg);
   }
 
   start() {
