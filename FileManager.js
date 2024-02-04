@@ -12,6 +12,7 @@ import { deleteFile } from './commands/files/deleteFile.js';
 import { navigateUp } from './commands/navigation/navigateUp.js';
 import { checkTargetDir } from './commands/navigation/checkTargetDir.js';
 import { getOsInfo } from './commands/os/getOsInfo.js';
+import { getFileHash } from './commands/crypto/getFileHash.js';
 
 export class FileManager {
   currentDir;
@@ -69,6 +70,11 @@ export class FileManager {
 
   os = ([arg]) => {
     getOsInfo(arg);
+  }
+
+  hash = async ([filePath]) => {
+    const fullPath = path.resolve(this.currentDir, filePath);
+    await getFileHash(fullPath);
   }
 
   start() {
