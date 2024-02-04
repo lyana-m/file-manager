@@ -1,12 +1,13 @@
 import path from 'path';
-import {parseInput} from './helpers/parseInput.js';
-import {isCommandValid} from './helpers/isCommandValid.js';
-import {INVALID_INPUT, OPERATION_FAILED} from './constants/errors.js';
-import {listFiles} from './commands/files/listFiles.js';
-import {readFile} from './commands/files/readFile.js';
-import {createFile} from './commands/files/createFile.js';
-import {navigateUp} from './commands/navigation/navigateUp.js';
-import {checkTargetDir} from './commands/navigation/checkTargetDir.js';
+import { parseInput } from './helpers/parseInput.js';
+import { isCommandValid } from './helpers/isCommandValid.js';
+import { INVALID_INPUT, OPERATION_FAILED } from './constants/errors.js';
+import { listFiles } from './commands/files/listFiles.js';
+import { readFile } from './commands/files/readFile.js';
+import { createFile } from './commands/files/createFile.js';
+import { renameFile } from './commands/files/renameFile.js';
+import { navigateUp } from './commands/navigation/navigateUp.js';
+import { checkTargetDir } from './commands/navigation/checkTargetDir.js';
 
 export class FileManager {
   currentDir;
@@ -40,6 +41,11 @@ export class FileManager {
     await createFile(fullPath);
   }
 
+  rn = async ([pathToFile, newFileName]) => {
+    const fullPath = path.resolve(this.currentDir, pathToFile);
+    await renameFile(fullPath, newFileName);
+  }
+
   start() {
     process.stdin.on('data', async (data) => {
       const input = data.toString().trim();
@@ -48,7 +54,7 @@ export class FileManager {
         process.exit(0);
       }
 
-      const {command, args} = parseInput(input);
+      const { command, args } = parseInput(input);
 
       console.log(command, args);
 
