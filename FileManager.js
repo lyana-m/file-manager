@@ -13,6 +13,8 @@ import { navigateUp } from './commands/navigation/navigateUp.js';
 import { checkTargetDir } from './commands/navigation/checkTargetDir.js';
 import { getOsInfo } from './commands/os/getOsInfo.js';
 import { getFileHash } from './commands/crypto/getFileHash.js';
+import { compressFile } from './commands/compression/compressFile.js';
+import { decompressFile } from './commands/compression/decompressFile.js';
 
 export class FileManager {
   currentDir;
@@ -75,6 +77,18 @@ export class FileManager {
   hash = async ([filePath]) => {
     const fullPath = path.resolve(this.currentDir, filePath);
     await getFileHash(fullPath);
+  }
+
+  compress = async ([sourceFilePath, destPath]) => {
+    const fullSourcePath = path.resolve(this.currentDir, sourceFilePath);
+    const fullDestPath = path.resolve(this.currentDir, destPath);
+    await compressFile(fullSourcePath, fullDestPath);
+  }
+
+  decompress = async ([sourceFilePath, destPath]) => {
+    const fullSourcePath = path.resolve(this.currentDir, sourceFilePath);
+    const fullDestPath = path.resolve(this.currentDir, destPath);
+    await decompressFile(fullSourcePath, fullDestPath);
   }
 
   start() {
