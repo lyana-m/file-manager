@@ -25,8 +25,12 @@ export const listFiles = async (path) => {
     tableData.push({Name: entry, Type: stats.isDirectory() ? 'directory' : 'file'});
   }
 
-  const sortedTableData = tableData
-    .sort((a, b) => a.Name.localeCompare(b.Name))
-    .sort((a, b) => a.Type.localeCompare(b.Type));
-  console.table(sortedTableData);
+  if (tableData.length) {
+    const sortedTableData = tableData
+      .sort((a, b) => a.Name.localeCompare(b.Name))
+      .sort((a, b) => a.Type.localeCompare(b.Type));
+    console.table(sortedTableData);
+  } else {
+    console.log('Directory is empty');
+  }
 };
