@@ -101,8 +101,6 @@ export class FileManager {
 
       const { command, args } = parseInput(input);
 
-      console.log(command, args);
-
       if (isCommandValid(command, args)) {
         try {
           await this[command](args);
